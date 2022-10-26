@@ -25,7 +25,27 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.get('/dashboard', async (req, res) => {
+    try {
+        const currentBoard = await Users.findByPk(req.session.user_id, {
+            attributes: {exclude: ['password']},
+            include: [{model: Posts}, {model: Comments}],
+        });
+        const loggedIn = req.session.logged_in;
+        const user = req.session.user_id;
 
+        const thisDash = currentBoard.get({plain: true})
+        
+        res.render('dashboard', {
+            thisDash,
+            loggedIn,
+            user,
+        });
+
+    } catch (err) {
+        res.status(400).json(err);
+    }
+});
 
 
 
