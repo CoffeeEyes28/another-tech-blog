@@ -2,6 +2,7 @@ const router = require('express').Router();
 
 const { Users, Posts, Comments } = require('../models');
 
+// Renders homepage
 router.get('/', async (req, res) => {
     try {
         const currentPosts = await Users.findAll({
@@ -30,6 +31,21 @@ router.get('/', async (req, res) => {
 
 
 
+
+
+
+
+
+
+
+// Renders login page
+router.get('/login', (req,res)=> {
+    if(req.session.logged_in){
+        res.redirect('/');
+        return;
+    }
+    res.render('login');
+});
 
 
 
