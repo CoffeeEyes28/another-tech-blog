@@ -3,7 +3,7 @@ const router = require('express').Router();
 const { Users, Posts, Comments } = require('../../models');
 
 // create new post
-router.post('/', async (req,res) => {
+router.post('/', async (req, res) => {
     try {
         const postData = await Posts.create({
             title: req.body.title,
@@ -17,7 +17,7 @@ router.post('/', async (req,res) => {
 });
 
 // updates a post
-router.put('/:id', async (req,res) => {
+router.put('/:id', async (req, res) => {
    try {
     const updatePost = await Posts.update(
         {
@@ -37,7 +37,7 @@ router.put('/:id', async (req,res) => {
 });
 
 // delete a post
-router.delete('/:id', async (req,res) => {
+router.delete('/:id', async (req, res) => {
     try {
         const postData = await Posts.destroy({
             where: {
@@ -53,14 +53,6 @@ router.delete('/:id', async (req,res) => {
         res.status(500).json(err)
     }
 });
-
-
-
-
-
-
-
-
 
 
 
