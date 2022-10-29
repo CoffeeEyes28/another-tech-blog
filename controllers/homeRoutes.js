@@ -48,6 +48,22 @@ router.get('/dashboard', async (req, res) => {
 });
 
 
+router.get('/post/:id', async (req,res) => {
+    try {
+        const postData = await Posts.findByPk(req.params.id, {
+            include: [{model: Comments}]
+        });
+        const thisPost = postData.get({plain: true})
+        const loggedIn = req.session.logged_in
+        res.render('post', {
+            thisPost,
+            loggedIn
+        })
+    } catch (err) {
+        res.status(404).json(err)
+    }
+});
+
 
 
 
